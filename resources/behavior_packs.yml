@@ -1,0 +1,7 @@
+#This configuration file controls global behavior packs used on your PocketMine-MP server.
+
+behavior_stack:
+#Behavior packs here are applied from bottom to top. This means that resources in higher packs will override those in lower packs.
+#Entries here must indicate the filename of the behavior pack.
+#Example
+# - customComplexUIs.zip
