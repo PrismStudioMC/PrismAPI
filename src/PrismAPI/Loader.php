@@ -2,18 +2,9 @@
 
 namespace PrismAPI;
 
-use pocketmine\block\VanillaBlocks;
-use pocketmine\crafting\CraftingRecipe;
-use pocketmine\crafting\ExactRecipeIngredient;
-use pocketmine\crafting\MetaWildcardRecipeIngredient;
-use pocketmine\crafting\ShapedRecipe;
-use pocketmine\crafting\TagWildcardRecipeIngredient;
 use pocketmine\event\EventPriority;
-use pocketmine\item\Item;
-use pocketmine\item\VanillaItems;
 use pocketmine\network\mcpe\NetworkSession;
 use pocketmine\network\mcpe\protocol\AvailableCommandsPacket;
-use pocketmine\network\mcpe\protocol\TextPacket;
 use pocketmine\network\mcpe\protocol\types\command\CommandData;
 use pocketmine\plugin\PluginBase;
 use pocketmine\Server;
