@@ -74,17 +74,17 @@ class BehaviorPack implements ResourcePack
 
         foreach ($manifest->modules as $module) {
             $type = strtolower($module->type);
-            if($type !== "script") {
+            if ($type !== "script") {
                 continue; // we only care about script modules
             }
 
             $language = strtolower($module->language);
-            if($language !== 'javascript') {
+            if ($language !== 'javascript') {
                 throw new BehaviorPackException("Unsupported script module language: " . $module->language);
             }
 
             $entry = strtolower($module->entry);
-            if(!preg_match('#^[a-z0-9_\-./]+$#', $entry)) {
+            if (!preg_match('#^[a-z0-9_\-./]+$#', $entry)) {
                 throw new BehaviorPackException("Invalid script module entry path: " . $module->entry);
             }
 
@@ -272,7 +272,7 @@ class BehaviorPack implements ResourcePack
     private function parseEntities(\ZipArchive $archive): array
     {
         $prefix = 'entities/';
-        $len    = strlen($prefix);
+        $len = strlen($prefix);
         $entities = [];
 
         for ($i = 0, $n = $archive->numFiles; $i < $n; $i++) {

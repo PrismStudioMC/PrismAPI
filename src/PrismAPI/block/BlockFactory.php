@@ -54,12 +54,12 @@ class BlockFactory
     {
         self::register("from_runtime_string_id", function (string $stringId): Block {
             $split = explode(":", $stringId, 2);
-            if(count($split) > 2) {
+            if (count($split) > 2) {
                 throw new InvalidArgumentException("Invalid runtime string ID: " . $stringId);
             }
 
             // If no namespace is given, assume "minecraft"
-            if(count($split) > 1) {
+            if (count($split) > 1) {
                 $stringId = $split[1];
             }
 
@@ -71,7 +71,7 @@ class BlockFactory
         });
 
         self::register("runtime_string_id_from", function (Block $block): string {
-            if(!isset(self::$blockMapping[$block->getTypeId()])) {
+            if (!isset(self::$blockMapping[$block->getTypeId()])) {
                 throw new InvalidArgumentException("No runtime string ID found for block: " . $block->getName());
             }
 
@@ -97,7 +97,7 @@ class BlockFactory
 
             // PMMP rename minecraft:grass to minecraft:grass_block
             // this is a hack
-            if($block instanceof Grass) {
+            if ($block instanceof Grass) {
                 $stringIds = array_merge(["grass_block"], $stringIds);
             }
 
@@ -106,7 +106,7 @@ class BlockFactory
                     continue;
                 }
 
-                if(isset(self::$blockMapping[$typeId])) {
+                if (isset(self::$blockMapping[$typeId])) {
                     continue;
                 }
 
@@ -141,12 +141,12 @@ class BlockFactory
      */
     public static function __callStatic(string $name, array $arguments)
     {
-        if(!self::$initialized) {
+        if (!self::$initialized) {
             self::init();
         }
 
         $upperName = mb_strtoupper($name);
-        if(!isset(self::$functions[$upperName])){
+        if (!isset(self::$functions[$upperName])) {
             throw new \InvalidArgumentException("No such registry member: " . self::class . "::" . $upperName);
         }
 

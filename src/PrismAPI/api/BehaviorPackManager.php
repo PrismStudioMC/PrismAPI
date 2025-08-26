@@ -80,7 +80,7 @@ class BehaviorPackManager
             try {
                 $newBehavior = $this->loadPackFromPath(Path::join($this->path, $behavior));
                 $scripts = $newBehavior->hasScripts();
-                if($scripts) {
+                if ($scripts) {
                     $this->logger->debug("Behavior pack \"$behavior\" contains scripts.");
                     $this->hasScripts = true; // If any behavior pack has scripts, we set this to true
                     $this->scriptBehaviorPacks[$newBehavior->getPackId()] = $newBehavior;
@@ -120,12 +120,12 @@ class BehaviorPackManager
         }
 
         $this->logger->info("Successfully Loaded " . count($this->behaviorPacks) . " behavior packs");
-        if(count($this->scriptBehaviorPacks) > 0) {
+        if (count($this->scriptBehaviorPacks) > 0) {
             foreach ($this->scriptBehaviorPacks as $k => $pack) {
 
             }
         }
-        if(count($this->behaviorPacks) > 0) {
+        if (count($this->behaviorPacks) > 0) {
             $this->registerListener();
         }
     }
@@ -151,7 +151,7 @@ class BehaviorPackManager
 
             $entries = [];
             foreach ($packet->resourcePackEntries as $k => $entry) {
-                if(!isset($this->behaviorPacks[$entry->getContentId()])) {
+                if (!isset($this->behaviorPacks[$entry->getContentId()])) {
                     $entries[] = $entry;
                     continue; // Only modify behavior packs
                 }
@@ -174,7 +174,7 @@ class BehaviorPackManager
 
         // Monitor outgoing ResourcePackDataInfoPacket to modify its packType
         $this->monitor->monitorOutgoing(function (ResourcePackDataInfoPacket $packet, NetworkSession $origin): void {
-            if(isset($this->behaviorPacks[$packet->packId])) {
+            if (isset($this->behaviorPacks[$packet->packId])) {
                 $packet->packType = ResourcePackType::BEHAVIORS; // Set the pack type to behaviors
             }
         });

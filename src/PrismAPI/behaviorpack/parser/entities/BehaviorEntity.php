@@ -17,28 +17,28 @@ class BehaviorEntity
 
     public function __construct(array $data)
     {
-        if(!isset($data["format_version"])) {
+        if (!isset($data["format_version"])) {
             throw new \InvalidArgumentException("Missing format_version");
         }
 
-        if(!is_string($data["format_version"])) {
+        if (!is_string($data["format_version"])) {
             throw new \InvalidArgumentException("format_version must be a string");
         }
 
-        if(!isset($data["minecraft:entity"])) {
+        if (!isset($data["minecraft:entity"])) {
             throw new \InvalidArgumentException("Missing minecraft:entity");
         }
 
-        if(!is_array($data["minecraft:entity"])) {
+        if (!is_array($data["minecraft:entity"])) {
             throw new \InvalidArgumentException("minecraft:entity must be an array");
         }
 
         $entityData = $data["minecraft:entity"];
-        if(!isset($entityData["description"])) {
+        if (!isset($entityData["description"])) {
             throw new \InvalidArgumentException("Missing description");
         }
 
-        if(!is_array($entityData["description"])) {
+        if (!is_array($entityData["description"])) {
             throw new \InvalidArgumentException("description must be an array");
         }
 
@@ -94,7 +94,7 @@ class BehaviorEntity
      */
     public function initEntity(array $entityData): void
     {
-        if(!empty($this->properties)){
+        if (!empty($this->properties)) {
             $entityProperties = EntityProperties::getInstance();
             foreach ($this->properties as $k => $property) {
                 $entityProperties->register($this->identifier, $property);
@@ -114,16 +114,16 @@ class BehaviorEntity
 
             // determine if the type is float or int
             $type = $property["type"] ?? throw new \InvalidArgumentException("Missing type for property '$k'");
-            if(strtolower($type) !== "float" && strtolower($type) !== "int"){
+            if (strtolower($type) !== "float" && strtolower($type) !== "int") {
                 throw new \InvalidArgumentException("Invalid type '$type' for property '$k'. Must be 'float' or 'int'.");
             }
 
             $range = $property["range"] ?? throw new \InvalidArgumentException("Missing range for property '$k'");
-            if(!is_array($range)) {
+            if (!is_array($range)) {
                 throw new \InvalidArgumentException("Range must be an array for property '$k'");
             }
 
-            if(empty($range)) {
+            if (empty($range)) {
                 throw new \InvalidArgumentException("Range array cannot be empty for property '$k'");
             }
 
@@ -131,26 +131,26 @@ class BehaviorEntity
             $max = null;
 
             foreach ($range as $k_ => $value) {
-                if(!is_numeric($value)) {
+                if (!is_numeric($value)) {
                     throw new \InvalidArgumentException("Range values must be numeric for property '$k'");
                 }
 
-                if($min === null || $value < $min) {
+                if ($min === null || $value < $min) {
                     $min = $value;
                 }
 
-                if($max === null || $value > $max) {
+                if ($max === null || $value > $max) {
                     $max = $value;
                 }
 
-                if($value < $min) {
+                if ($value < $min) {
                     $min = $value;
-                } else if($value > $max) {
+                } else if ($value > $max) {
                     $max = $value;
                 }
             }
 
-            if(is_null($min) || is_null($max)) {
+            if (is_null($min) || is_null($max)) {
                 throw new \InvalidArgumentException("Range must have at least one numeric value for property '$k'");
             }
 

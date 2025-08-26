@@ -2,8 +2,8 @@
 
 namespace PrismAPI\behaviorpack;
 
-final class ManifestDependencyEntry{
-
+final class ManifestDependencyEntry
+{
     public string $uuid = "";
     public string $module_name = "";
 

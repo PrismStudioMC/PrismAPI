@@ -19,8 +19,8 @@ final class ResourcePack
      */
     public static function load(string $path): ?ResourcePackPM
     {
-        $server  = Server::getInstance();
-        $logger  = $server->getLogger();
+        $server = Server::getInstance();
+        $logger = $server->getLogger();
         $manager = $server->getResourcePackManager();
 
         $path = Path::canonicalize($path);
@@ -63,7 +63,7 @@ final class ResourcePack
 
         /** @var ResourcePackPM $pack */
         $pack = self::load($path);
-        if($pack !== null) {
+        if ($pack !== null) {
             $index = strtolower($pack->getPackId());
             $manager->setPackEncryptionKey($index, $key);
         }

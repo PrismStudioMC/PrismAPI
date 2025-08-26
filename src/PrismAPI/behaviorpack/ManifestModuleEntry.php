@@ -2,8 +2,8 @@
 
 namespace PrismAPI\behaviorpack;
 
-final class ManifestModuleEntry{
-
+final class ManifestModuleEntry
+{
     public string $description;
 
     /** @required */

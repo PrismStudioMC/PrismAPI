@@ -9,7 +9,8 @@ use pocketmine\resourcepacks\json\ManifestMetadata;
 /**
  * Model for JsonMapper to represent resource pack manifest.json contents.
  */
-final class Manifest{
+final class Manifest
+{
     /** @required */
     public int $format_version;
 

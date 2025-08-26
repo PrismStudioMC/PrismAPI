@@ -10,7 +10,7 @@ use pocketmine\nbt\tag\StringTag;
 class EntitySyncProperties
 {
     public function __construct(
-        private string $propertyName,
+        private string    $propertyName,
         private float|int $default = 0,
         private float|int $min = 0,
         private float|int $max = 1,
@@ -20,7 +20,7 @@ class EntitySyncProperties
             throw new \InvalidArgumentException("Property name cannot be empty.");
         }
 
-        if($default < $min || $default > $max){
+        if ($default < $min || $default > $max) {
             throw new \InvalidArgumentException("Default value must be within the range of min and max.");
         }
 
@@ -32,7 +32,7 @@ class EntitySyncProperties
             throw new \InvalidArgumentException("Values must be non-negative.");
         }
 
-        if(is_float($min) !== is_float($max)){
+        if (is_float($min) !== is_float($max)) {
             throw new \InvalidArgumentException("Both min and max must be of the same type (either both float or both int).");
         }
     }

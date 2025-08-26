@@ -4,7 +4,4 @@ namespace PrismAPI\behaviorpack;
 
 use pocketmine\resourcepacks\ResourcePackException;
 
-class BehaviorPackException extends ResourcePackException
-{
-
-}
+class BehaviorPackException extends ResourcePackException{}

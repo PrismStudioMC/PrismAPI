@@ -61,7 +61,7 @@ class EntityProperties
         // Ensure synced props are attached on SetActorData
         $this->monitor->monitorOutgoing(function (SetActorDataPacket $pk, NetworkSession $origin): void {
             // Skip if no synced properties registered for this entity type
-            if(!empty($pk->metadata)) {
+            if (!empty($pk->metadata)) {
                 $cloned = clone $pk;
                 $cloned->metadata = [];
                 $origin->sendDataPacket($cloned);
@@ -69,12 +69,12 @@ class EntityProperties
             }
 
             $player = $origin->getPlayer();
-            if($player === null) {
+            if ($player === null) {
                 return; // Player is not online, do not modify the packet
             }
 
             $entity = $player->getWorld()->getEntity($pk->actorRuntimeId);
-            if($entity === null) {
+            if ($entity === null) {
                 return; // Entity not found, do not modify the packet
             }
 
@@ -88,7 +88,7 @@ class EntityProperties
 
         // Clear entity props on entity removal
         $this->monitor->monitorOutgoing(function (ActorEventPacket $pk, NetworkSession $origin): void {
-            if(isset($this->entityProperties[$pk->actorRuntimeId])) {
+            if (isset($this->entityProperties[$pk->actorRuntimeId])) {
                 unset($this->entityProperties[$pk->actorRuntimeId]);
             }
         });
@@ -176,15 +176,15 @@ class EntityProperties
         $this->setPropertySyncData($isFloat, $props, $value, $i);
 
         // It could cause performance problems, but it's the simplest.
-        if($update) {
-            if($entityId === 'minecraft:player') {
+        if ($update) {
+            if ($entityId === 'minecraft:player') {
                 foreach ($player->getViewers() as $k => $viewer) {
                     $viewer->sendData([$player]); // force update for this player only
                 }
             } else {
                 // Force update all entities of this type for the player
-                foreach($player->getWorld()->getEntities() as $entity) {
-                    if($entity::getNetworkTypeId() === $entityId) {
+                foreach ($player->getWorld()->getEntities() as $entity) {
+                    if ($entity::getNetworkTypeId() === $entityId) {
                         $entity->sendData([$player]); // force update for this player only
                     }
                 }

@@ -46,14 +46,14 @@ class Loader extends PluginBase
         // Register command interception for overloads
         $this->monitor->monitorOutgoing(function (AvailableCommandsPacket $packet, NetworkSession $origin): void {
             $player = $origin->getPlayer();
-            if($player === null) {
+            if ($player === null) {
                 return; // Player is not online, do not modify the packet
             }
 
             $commands = Server::getInstance()->getCommandMap()->getCommands();
             foreach ($commands as $k => $cmd) {
                 // Skip commands that are not instances of PrismCommand
-                if(!$cmd instanceof PrismCommand) {
+                if (!$cmd instanceof PrismCommand) {
                     continue;
                 }
 

@@ -28,14 +28,14 @@ final class PromiseResolver
      */
     public function resolve(mixed $value): void
     {
-        if($this->state !== null) {
+        if ($this->state !== null) {
             throw new \LogicException("Promise has already been resolved");
         }
 
         $this->state = true;
         $this->result = $value;
 
-        foreach($this->onThen as $callback) {
+        foreach ($this->onThen as $callback) {
             $callback($value);
         }
     }
@@ -48,14 +48,14 @@ final class PromiseResolver
      */
     public function reject(mixed $reason): void
     {
-        if($this->state !== null) {
+        if ($this->state !== null) {
             throw new \LogicException("Promise has already been resolved");
         }
 
         $this->state = false;
         $this->result = $reason;
 
-        foreach($this->onCatch as $callback) {
+        foreach ($this->onCatch as $callback) {
             $callback($reason);
         }
     }
@@ -68,7 +68,7 @@ final class PromiseResolver
      */
     public function then(callable $callback): void
     {
-        if($this->state === true) {
+        if ($this->state === true) {
             $callback($this->result);
         } else {
             $this->onThen[] = $callback;
@@ -83,7 +83,7 @@ final class PromiseResolver
      */
     public function catch(callable $callback): void
     {
-        if($this->state === false) {
+        if ($this->state === false) {
             $callback($this->result);
         } else {
             $this->onCatch[] = $callback;
