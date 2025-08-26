@@ -26,6 +26,9 @@ $deserialized = ItemFactory::DESERIALIZE($serialized);
 
 // Lock items with different modes
 $lockedItem = ItemFactory::LOCK($item, ItemLockMode::FULL);
+
+// Get crafting recipes for an item
+$crafts = ItemFactory::CRAFTS($item, depth: 3);
 ```
 
 #### BlockFactory
