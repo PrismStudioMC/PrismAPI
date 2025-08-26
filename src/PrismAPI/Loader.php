@@ -2,7 +2,15 @@
 
 namespace PrismAPI;
 
+use pocketmine\block\VanillaBlocks;
+use pocketmine\crafting\CraftingRecipe;
+use pocketmine\crafting\ExactRecipeIngredient;
+use pocketmine\crafting\MetaWildcardRecipeIngredient;
+use pocketmine\crafting\ShapedRecipe;
+use pocketmine\crafting\TagWildcardRecipeIngredient;
 use pocketmine\event\EventPriority;
+use pocketmine\item\Item;
+use pocketmine\item\VanillaItems;
 use pocketmine\network\mcpe\NetworkSession;
 use pocketmine\network\mcpe\protocol\AvailableCommandsPacket;
 use pocketmine\network\mcpe\protocol\TextPacket;
@@ -12,6 +20,8 @@ use pocketmine\Server;
 use pocketmine\utils\SingletonTrait;
 use PrismAPI\api\BehaviorPackManager;
 use PrismAPI\api\EntityProperties;
+use PrismAPI\block\BlockFactory;
+use PrismAPI\item\ItemFactory;
 use PrismAPI\libs\muqsit\simplepackethandler\interceptor\IPacketInterceptor;
 use PrismAPI\libs\muqsit\simplepackethandler\monitor\IPacketMonitor;
 use PrismAPI\libs\muqsit\simplepackethandler\SimplePacketHandler;
@@ -61,6 +71,8 @@ class Loader extends PluginBase
             }
         });
 
+        new ItemFactory(); // Initialize item sync functions
+        new BlockFactory(); // Initialize block sync functions
         new EntityProperties($this->monitor, $this->interceptor); // Initialize entity sync properties
 
         // Initialize behavior pack manager

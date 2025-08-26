@@ -19,6 +19,11 @@ class BlockFactory
     private static array $stringIdMapping = [];
     private static array $blockMapping = [];
 
+    public function __construct()
+    {
+        self::init();
+    }
+
     /**
      * @param string $name
      * @return void
