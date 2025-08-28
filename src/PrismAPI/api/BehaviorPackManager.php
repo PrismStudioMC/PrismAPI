@@ -23,7 +23,6 @@ use PrismAPI\behaviorpack\BehaviorPackException;
 use PrismAPI\behaviorpack\BehaviorPackStackEntry;
 use PrismAPI\libs\muqsit\simplepackethandler\interceptor\IPacketInterceptor;
 use PrismAPI\libs\muqsit\simplepackethandler\monitor\IPacketMonitor;
-use PrismAPI\Loader;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\Filesystem\Path;
 
@@ -137,7 +136,7 @@ class BehaviorPackManager
     {
         // Monitor outgoing StartGamePacket to modify its experiments
         $this->monitor->monitorOutgoing(function (StartGamePacket $packet, NetworkSession $origin): void {
-            $packet->levelSettings->experiments = new Experiments(array_merge(
+            $packet->levelSettings->experiments = new Experiments(array_replace(
                 $packet->levelSettings->experiments->getExperiments(),
                 ["gametest" => true] // Enable experiments required for behavior packs
             ), $packet->levelSettings->experiments->hasPreviouslyUsedExperiments());
