@@ -12,10 +12,14 @@ use pocketmine\utils\SingletonTrait;
 use PrismAPI\api\BehaviorPackManager;
 use PrismAPI\api\EntityProperties;
 use PrismAPI\block\BlockFactory;
+use PrismAPI\entity\EntityFactory;
 use PrismAPI\item\ItemFactory;
 use PrismAPI\libs\muqsit\simplepackethandler\interceptor\IPacketInterceptor;
 use PrismAPI\libs\muqsit\simplepackethandler\monitor\IPacketMonitor;
 use PrismAPI\libs\muqsit\simplepackethandler\SimplePacketHandler;
+use PrismAPI\listener\ItemBuilderListener;
+use PrismAPI\listener\OfflinePlayerListener;
+use PrismAPI\player\PlayerFactory;
 use PrismAPI\utils\PrismCommand;
 use Symfony\Component\Filesystem\Path;
 
@@ -49,7 +53,11 @@ class Loader extends PluginBase
                 }
 
                 // Rebuild overloads for the command
-                $data = $packet->commandData[$cmd->getLabel()];
+                $data = $packet->commandData[$cmd->getLabel()] ?? null;
+                if ($data === null) {
+                    continue; // Command data not found in the packet
+                }
+
                 $packet->commandData[$cmd->getLabel()] = new CommandData(
                     $cmd->getName(),
                     $cmd->getDescription(),
@@ -64,6 +72,8 @@ class Loader extends PluginBase
 
         new ItemFactory(); // Initialize item sync functions
         new BlockFactory(); // Initialize block sync functions
+        new EntityFactory(); // Initialize entity factory
+        new PlayerFactory(); // Initialize
         new EntityProperties($this->monitor, $this->interceptor); // Initialize entity sync properties
 
         // Initialize behavior pack manager
@@ -73,6 +83,9 @@ class Loader extends PluginBase
             Path::join($this->getServer()->getDataPath(), "behavior_packs"),
             $this->getLogger()
         );
+
+        $this->getServer()->getPluginManager()->registerEvents(new ItemBuilderListener(), $this);
+        $this->getServer()->getPluginManager()->registerEvents(new OfflinePlayerListener(), $this);
     }
 
     /**
