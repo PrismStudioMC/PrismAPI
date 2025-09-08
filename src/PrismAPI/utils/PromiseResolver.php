@@ -2,7 +2,7 @@
 
 namespace PrismAPI\utils;
 
-final class PromiseResolver
+class PromiseResolver
 {
     private ?bool $state = null;
     private mixed $result = null;
@@ -64,29 +64,33 @@ final class PromiseResolver
      * Registers a callback to be called when the promise is resolved.
      *
      * @param callable $callback
-     * @return void
+     * @return PromiseResolver
      */
-    public function then(callable $callback): void
+    public function then(callable $callback): PromiseResolver
     {
         if ($this->state === true) {
             $callback($this->result);
         } else {
             $this->onThen[] = $callback;
         }
+
+        return $this;
     }
 
     /**
      * Registers a callback to be called when the promise is rejected.
      *
      * @param callable $callback
-     * @return void
+     * @return PromiseResolver
      */
-    public function catch(callable $callback): void
+    public function catch(callable $callback): PromiseResolver
     {
         if ($this->state === false) {
             $callback($this->result);
         } else {
             $this->onCatch[] = $callback;
         }
+
+        return $this;
     }
 }

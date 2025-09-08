@@ -70,7 +70,7 @@ class PlayerFactory
      * @param string $name
      * @return OfflinePlayer|Player|null
      */
-    public function getPlayer(string $name): OfflinePlayer|Player|null
+    public function getPlayer(string $name, bool $reqOnline = false): OfflinePlayer|Player|null
     {
         $player = Server::getInstance()->getPlayerExact($name);
         if ($player !== null) {
@@ -78,7 +78,7 @@ class PlayerFactory
         }
 
         $offline = $this->getOfflinePlayer($name);
-        if ($offline !== null) {
+        if ($offline !== null && !$reqOnline) {
             return $offline;
         }
 

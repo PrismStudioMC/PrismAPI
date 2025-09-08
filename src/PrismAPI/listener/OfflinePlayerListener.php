@@ -5,7 +5,6 @@ namespace PrismAPI\listener;
 use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerLoginEvent;
 use pocketmine\event\player\PlayerPreLoginEvent;
-use pocketmine\event\player\PlayerQuitEvent;
 use pocketmine\event\world\WorldSaveEvent;
 use pocketmine\inventory\SimpleInventory;
 use pocketmine\Server;
@@ -19,7 +18,7 @@ class OfflinePlayerListener implements Listener
      * @param PlayerPreLoginEvent $ev
      * @return void
      */
-    public function handleCreation(PlayerPreLoginEvent $ev) : void
+    public function handlePreLogin(PlayerPreLoginEvent $ev) : void
     {
         $playerInfo = $ev->getPlayerInfo();
         $name = $playerInfo->getUsername();

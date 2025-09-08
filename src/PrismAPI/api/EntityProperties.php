@@ -79,7 +79,14 @@ class EntityProperties
             }
 
             $props = $this->entityProperties[$pk->actorRuntimeId] ??= new PropertySyncData([], []);
+            $pk->syncedProperties = $this->entityProperties[$pk->actorRuntimeId] ??= new PropertySyncData([], []);
+
             $clientProps = $this->clientProperties[$player->getId()][$entity::getNetworkTypeId()] ??= new PropertySyncData([], []);
+            if($player->getId() === $entity->getId() && $entity::getNetworkTypeId() === 'minecraft:player') {
+                // If the entity is a player and not the current player, skip setting properties
+                return;
+            }
+
             $pk->syncedProperties = new PropertySyncData(
                 array_replace($props->getIntProperties(), $clientProps->getIntProperties()),
                 array_replace($props->getFloatProperties(), $clientProps->getFloatProperties())

@@ -23,6 +23,7 @@ use PrismAPI\behaviorpack\BehaviorPackException;
 use PrismAPI\behaviorpack\BehaviorPackStackEntry;
 use PrismAPI\libs\muqsit\simplepackethandler\interceptor\IPacketInterceptor;
 use PrismAPI\libs\muqsit\simplepackethandler\monitor\IPacketMonitor;
+use PrismAPI\Loader;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\Filesystem\Path;
 
@@ -191,9 +192,12 @@ class BehaviorPackManager
                 $resourcePacks
             );
 
+            $packet->resourcePackStack[] = new ResourcePackStackEntry("9b2ee940-33c4-4894-8b81-9ae65dc8353c", "1.0.0", ""); // chemistry
+            $packet->resourcePackStack[] = new ResourcePackStackEntry("6baf8b62-8948-4c99-bb1e-a0cb35dc4579", "1.0.0", ""); // education
+
             $packet->behaviorPackStack = array_map(
                 static fn(BehaviorPack $p) => new BehaviorPackStackEntry($p->getPackId(), $p->getPackVersion(), ''),
-                array_values($this->behaviorPacks)
+                $this->behaviorPacks
             );
         });
     }

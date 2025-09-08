@@ -3,6 +3,7 @@
 namespace PrismAPI\player\offline\types;
 
 use InvalidArgumentException;
+use pocketmine\entity\Human;
 use pocketmine\inventory\ArmorInventory;
 use pocketmine\inventory\Inventory;
 use pocketmine\inventory\InventoryListener;
@@ -10,7 +11,6 @@ use pocketmine\inventory\PlayerEnderInventory;
 use pocketmine\inventory\PlayerInventory;
 use pocketmine\inventory\PlayerOffHandInventory;
 use pocketmine\item\Item;
-use pocketmine\entity\Human;
 use pocketmine\player\Player;
 use PrismAPI\player\PlayerFactory;
 

@@ -215,6 +215,22 @@ class OfflinePlayer extends Human
     }
 
     /**
+     * @param Position|null $position
+     */
+    public function setSpawn(?Position $position): void
+    {
+        $this->spawnPosition = $position;
+    }
+
+    /**
+     * @param Position|null $deathPosition
+     */
+    public function setDeathPosition(?Position $deathPosition): void
+    {
+        $this->deathPosition = $deathPosition;
+    }
+
+    /**
      * @return bool
      */
     public function hasValidCustomSpawn(): bool
